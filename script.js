@@ -35,6 +35,11 @@ let userAnswers = [];
 let index = 0;
 
 function showNextQuestion() {
+    // check the answers
+    if (index >= questions.length){
+        checkAnswers();
+        return;
+        }
     // TODO: Get the current question
     let question = questions[index];
 
@@ -77,18 +82,46 @@ function submitAnswer(event) {
 
     // TODO: Use a conditional (if/else-if) to check which option was clicked and push the option text into the userAnswer array
     if (option1.checked){
-        console.log("option1 picked")
+        console.log("option1 picked");
+        userAnswers.push(question.option1);
+        option1.checked = false;
     }
-
+    else if (option2.checked){
+        userAnswers.push(question.option2);
+        option2.checked = false;
+    }
+    else if (option3.checked){
+        userAnswers.push(question.option3);
+        option3.checked = false;
+    }
+    else if (option4.checked){
+          userAnswers.push(question.option4);
+          option4.checked = false;
+    }
+    
+    else{
+        alert("pick an answer");
+        return;
+    }
+    console.log(userAnswers);
     // TODO: Add one to the question index
+    index = index + 1;
 
     // TODO: Load the next question
+    showNextQuestion();
 }
 
 function checkAnswers() {
     // TODO: Iterate through the user answers array and count how many are correct
-
+    let numcorrect = 0;
+    for (let i = 0; i < userAnswers.length; i++){
+        let userAnswer = userAnswers[i];
+        let question = questions[i];
+        if (userAnswer == question.answer){
+            numcorrect++;
+        }
+    }
     // TODO: Show an alert to the user with how many they got right out of the total
-
+    alert("")
     // TODO: Reset and start over
 }
